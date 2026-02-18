@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FaceTrack Attendance</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script defer src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
+    <script defer src="app.js"></script>
+  </head>
+  <body>
+    <main class="container">
+      <header>
+        <h1>FaceTrack Attendance</h1>
+        <p>
+          Register employees and record check-in/check-out with face matching. Works with
+          <strong>webcam</strong> or <strong>uploaded photos</strong>.
+        </p>
+      </header>
+
+      <section class="panel">
+        <h2>Recognition Source</h2>
+        <div class="source-controls">
+          <label>
+            Source mode
+            <select id="sourceMode">
+              <option value="camera">Webcam</option>
+              <option value="upload">Photo Upload</option>
+            </select>
+          </label>
+          <label id="uploadLabel" class="hidden">
+            Upload face photo
+            <input id="imageUpload" type="file" accept="image/*" />
+          </label>
+        </div>
+        <p class="hint">
+          If webcam access is blocked in your environment, switch to <strong>Photo Upload</strong>
+          and use employee face images for enrollment and attendance actions.
+        </p>
+      </section>
+
+      <section class="panel camera-panel" id="cameraPanel">
+        <h2>Camera Preview</h2>
+        <video id="video" autoplay muted playsinline></video>
+      </section>
+
+      <section class="panel upload-panel hidden" id="uploadPanel">
+        <h2>Uploaded Image Preview</h2>
+        <img id="uploadedPreview" alt="Uploaded face preview" />
+      </section>
+
+      <section class="panel">
+        <h2>System Status</h2>
+        <div id="status" class="status">Initializing…</div>
+      </section>
+
+      <section class="panel">
+        <h2>Employee Enrollment</h2>
+        <form id="enrollForm" class="grid-form">
+          <label>
+            Employee ID
+            <input id="employeeId" type="text" required placeholder="EMP-001" />
+          </label>
+          <label>
+            Full Name
+            <input id="employeeName" type="text" required placeholder="Jane Doe" />
+          </label>
+          <button type="submit">Register Face</button>
+        </form>
+      </section>
+
+      <section class="panel">
+        <h2>Attendance Actions</h2>
+        <div class="actions">
+          <button id="checkInBtn" type="button">Check In</button>
+          <button id="checkOutBtn" type="button">Check Out</button>
+          <button id="clearLogsBtn" type="button" class="secondary">Clear Logs</button>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>Registered Employees</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Last Seen</th>
+            </tr>
+          </thead>
+          <tbody id="employeeTable"></tbody>
+        </table>
+      </section>
+
+      <section class="panel">
+        <h2>Attendance Log</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Time</th>
+              <th>Employee ID</th>
+              <th>Name</th>
+              <th>Action</th>
+              <th>Distance</th>
+            </tr>
+          </thead>
+          <tbody id="logTable"></tbody>
+        </table>
+      </section>
+    </main>
+  </body>
+</html>
